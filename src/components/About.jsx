@@ -7,8 +7,8 @@ export default function About() {
       <div className="about-container">
         {/* Left Column (Text Content) */}
         <div className="about-text-column">
-          <span className="about-tag">About Us</span>
-          <h2 className="about-headline">At Harp and Code, we partner with visionaries</h2>
+          <span className="about-tag">About Harp & Code</span>
+          <h2 className="about-headline">We partner with visionaries</h2>
           <div className="about-description">
             <p>
               We help entrepreneurs, small businesses, and creators turn bold ideas into meaningful digital products. Our approach blends modern technology with intentional design to build solutions
@@ -27,7 +27,7 @@ export default function About() {
 
         {/* Right Column (Image) */}
         <div className="about-image-column">
-          <img src="https://images.unsplash.com/photo-1556761175-5973dc0f32e7?q=80&w=2832&auto=format&fit=crop" alt="Harp and Code Team" />
+          <img src="/greg-rakozy-oMpAz-DN-9I-unsplash (1).jpg" alt="Harp and Code Team" />
         </div>
       </div>
     </section>
