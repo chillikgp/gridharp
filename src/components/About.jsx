@@ -11,8 +11,7 @@ export default function About() {
           <h2 className="about-headline">We partner with visionaries</h2>
           <div className="about-description">
             <p>
-              We help entrepreneurs, small businesses, and creators turn bold ideas into meaningful digital products. Our approach blends modern technology with intentional design to build solutions
-              that resonate.
+              We help entrepreneurs, small businesses, and creators turn bold ideas into meaningful digital products.
             </p>
             <p>We specialize in:</p>
             <ul className="about-specialties">
