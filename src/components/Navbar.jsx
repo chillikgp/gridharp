@@ -20,13 +20,13 @@ export default function Navbar({ isVisible }) {
             <NavLink to="/">Home</NavLink>
           </li>
           <li>
-            <NavLink to="/features">Features</NavLink>
+            <NavLink to="/features">Services</NavLink>
           </li>
           <li>
-            <NavLink to="/pricing">Pricing</NavLink>
+            <NavLink to="/pricing">About Us</NavLink>
           </li>
           <li>
-            <NavLink to="/about">About</NavLink>
+            <NavLink to="/about">Products</NavLink>
           </li>
         </ul>
 
