@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
-import "../css/ProductPage.css";
+import "../CSS/ProductPage.css";
 import Navbar from "./Navbar";
 
-// SVG Icon for the tickmark
+// SVG Icon for the tickmark hello
 const TickIcon = () => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
@@ -14,7 +14,8 @@ const TickIcon = () => (
     strokeWidth="3"
     strokeLinecap="round"
     strokeLinejoin="round"
-    className="tick-icon">
+    className="tick-icon"
+  >
     <polyline points="20 6 9 17 4 12"></polyline>
   </svg>
 );
@@ -60,10 +61,7 @@ export default function AISolutions() {
           {/* Hero Content fade-in */}
           <div className={`hero-content ${showContent ? "visible" : "hidden"}`}>
             <h1>AI Solutions</h1>
-            <p>
-              Leverage AI to automate, optimize, and gain insights that drive smarter business
-              decisions.
-            </p>
+            <p>Leverage AI to automate, optimize, and gain insights that drive smarter business decisions.</p>
           </div>
         </div>
       </section>

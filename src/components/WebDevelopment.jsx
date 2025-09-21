@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import "../css/ProductPage.css"; // This CSS file is shared by all product pages
+import "../CSS/ProductPage.css"; // Fix CSS
 import Navbar from "./Navbar";
 
 // SVG Icon for the tickmark
@@ -14,7 +14,8 @@ const TickIcon = () => (
     strokeWidth="3"
     strokeLinecap="round"
     strokeLinejoin="round"
-    className="tick-icon">
+    className="tick-icon"
+  >
     <polyline points="20 6 9 17 4 12"></polyline>
   </svg>
 );
