@@ -1,35 +1,41 @@
 .about-section {
   padding: 4rem 2rem;
-  background-color: #f9fafb; /* Light background for the whole section */
+  background-color: transparent; /* Changed from #f9fafb */
   position: relative;
   z-index: 4;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
 }
 
 .about-container {
   display: flex;
-  flex-wrap: wrap; /* Allows columns to stack on smaller screens */
-  gap: 2rem;
+  flex-wrap: wrap;
+  gap: 3rem;
   max-width: 1200px;
   margin: 0 auto;
   padding: 3rem;
-  background-color: #ffffff;
-  border-radius: 24px;
-  box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.05), 0 4px 6px -4px rgb(0 0 0 / 0.05);
+  background-color: transparent;
   align-items: center;
 }
 
 .about-text-column {
-  flex: 1; /* Take up remaining space */
-  min-width: 300px; /* Prevent it from getting too squished */
+  flex: 1;
+  min-width: 600px;
 }
 
 .about-image-column {
   flex: 1;
-  min-width: 300px;
+  min-width: 200px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .about-image-column img {
   width: 100%;
+  max-width: 300px; /* You can adjust this to control the max image size */
+  height: auto;
   border-radius: 16px;
   object-fit: cover;
 }
@@ -53,21 +59,11 @@
 }
 
 .about-description p {
-  font-size: 1rem;
+  font-size: 1.25rem; /* Larger font for the effect */
   color: #4b5563;
   line-height: 1.6;
   margin-bottom: 1rem;
-}
-
-.about-specialties {
-  list-style-type: "✓  "; /* Adds a checkmark before each item */
-  padding-left: 1.25rem;
-  margin: 1.5rem 0;
-  color: #4b5563;
-}
-
-.about-specialties li {
-  margin-bottom: 0.5rem;
+  font-weight: bold;
 }
 
 .about-contact-button {
@@ -86,9 +82,9 @@
   background-color: #374151;
 }
 
-/* Responsive adjustments for smaller screens */
 @media (max-width: 768px) {
   .about-container {
+    flex-direction: column-reverse; /* Stack image on top on mobile */
     padding: 2rem;
   }
 }

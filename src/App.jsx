@@ -8,14 +8,20 @@ import WebDevelopment from "./components/WebDevelopment";
 import AppDevelopment from "./components/AppDevelopment";
 import AISolutions from "./components/AISolutions";
 import Footer from "./components/Footer";
+import CallbackFormModal from "./components/CallbackFormModal";
+import GridBackground from "./components/GridBackground"; // 1. Import the new component
 
 export default function App() {
   const [isNavbarVisible, setNavbarVisible] = useState(false);
-  const productsSectionRef = useRef(null);
+  const [isModalOpen, setModalOpen] = useState(false);
+  const contentSectionRef = useRef(null);
 
   const handleVideoEnd = () => {
     setNavbarVisible(true);
   };
+
+  const openModal = () => setModalOpen(true);
+  const closeModal = () => setModalOpen(false);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -31,7 +37,7 @@ export default function App() {
       }
     );
 
-    const currentRef = productsSectionRef.current;
+    const currentRef = contentSectionRef.current;
     if (currentRef) {
       observer.observe(currentRef);
     }
@@ -46,25 +52,28 @@ export default function App() {
   return (
     <Router>
       <Navbar isVisible={isNavbarVisible} />
+      <CallbackFormModal isOpen={isModalOpen} onClose={closeModal} />
 
-      <div>
-        <Routes>
-          <Route
-            path="/"
-            element={
-              <>
-                <Hero onVideoEnd={handleVideoEnd} />
-                <Products ref={productsSectionRef} />
-                <About />
-              </>
-            }
-          />
-          <Route path="/products/web-development" element={<WebDevelopment />} />
-          <Route path="/products/app-development" element={<AppDevelopment />} />
-          <Route path="/products/ai-solutions" element={<AISolutions />} />
-        </Routes>
-      </div>
-      <Footer />
+      {/* The Hero section remains outside the grid */}
+      <Routes>
+        <Route
+          path="/"
+          element={
+            <>
+              <Hero onVideoEnd={handleVideoEnd} />
+              {/* 2. Wrap the rest of the page content */}
+              <GridBackground>
+                <About ref={contentSectionRef} onOpenModal={openModal} />
+                <Products />
+                <Footer onOpenModal={openModal} />
+              </GridBackground>
+            </>
+          }
+        />
+        <Route path="/products/web-development" element={<WebDevelopment />} />
+        <Route path="/products/app-development" element={<AppDevelopment />} />
+        <Route path="/products/ai-solutions" element={<AISolutions />} />
+      </Routes>
     </Router>
   );
 }

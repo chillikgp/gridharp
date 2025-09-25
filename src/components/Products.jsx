@@ -1,62 +1,126 @@
-import React from "react";
-import ProductCard from "./ProductCard"; // Import the new component
+import React, { useState, useEffect, useRef } from "react";
 import "../CSS/Products.css";
 
 const Products = React.forwardRef((props, ref) => {
-  const productData = [
+  const servicesData = [
     {
       title: "Web Development",
-      tagline: "Responsive, SEO-friendly sites tailored for your brand.",
-      link: "/products/web-development",
-      icon: (
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-          <path d="m18 16 4-4-4-4" />
-          <path d="m6 8-4 4 4 4" />
-          <path d="m14.5 4-5 16" />
-        </svg>
-      ),
+      description: "Guaranteed to be unique - we create the optimal foundation for your digital presence with a knack for detail and aesthetics.",
+      points: [
+        "Web design and development",
+        "Implementation of designs (e.g. Figma)",
+        "Creation of interactive designs for replication",
+        "Webshop and e-commerce platforms",
+        "Redesign and relaunch",
+        "UI and UX optimization",
+      ],
+      imageUrl: "https://images.unsplash.com/photo-1542744095-291d1f67b221?q=80&w=2070&auto=format&fit-crop",
     },
     {
       title: "App Development",
-      tagline: "Engaging, user-friendly apps that bring your ideas to life.",
-      link: "/products/app-development",
-      icon: (
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-          <rect width="14" height="20" x="5" y="2" rx="2" ry="2" />
-          <path d="M12 18h.01" />
-        </svg>
-      ),
+      description: "From concept to launch, we build intuitive and powerful mobile applications for iOS and Android that engage users and drive growth.",
+      points: [
+        "Native iOS & Android development",
+        "Cross-platform solutions (React Native)",
+        "App store deployment and management",
+        "Backend services and API integration",
+        "Push notifications and in-app purchases",
+        "Performance monitoring and analytics",
+      ],
+      imageUrl: "https://images.unsplash.com/photo-1607252650355-f7fd0460ccdb?q=80&w=2070&auto=format&fit-crop",
     },
     {
       title: "AI Solutions",
-      tagline: "Intelligent digital assistants for your business workflows.",
-      link: "/products/ai-solutions",
-      icon: (
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-          <path d="M12 8V4H8" />
-          <rect width="16" height="12" x="4" y="8" rx="2" />
-          <path d="M2 14h2" />
-          <path d="M20 14h2" />
-          <path d="M15 13v2" />
-          <path d="M9 13v2" />
-        </svg>
-      ),
+      description: "Leverage the power of artificial intelligence to automate processes, gain insights, and create innovative products.",
+      points: [
+        "Machine learning model development",
+        "Natural Language Processing (NLP)",
+        "Computer vision and image analysis",
+        "Predictive analytics and forecasting",
+        "AI-powered chatbot development",
+        "Data strategy and infrastructure",
+      ],
+      imageUrl: "https://images.unsplash.com/photo-1677756119517-756a188d2d94?q=80&w=2070&auto=format&fit=crop",
     },
   ];
+
+  const [progressValues, setProgressValues] = useState(Array(servicesData.length).fill(0));
+  const serviceSectionsRef = useRef([]);
+
+  useEffect(() => {
+    const handleServicesScroll = () => {
+      const newProgressValues = servicesData.map((_, index) => {
+        const section = serviceSectionsRef.current[index];
+        if (!section) return 0;
+
+        const { top } = section.getBoundingClientRect();
+        const animationStartPoint = window.innerHeight * 0.75;
+        const animationEndPoint = window.innerHeight * 0.25;
+        const animationZoneHeight = animationStartPoint - animationEndPoint;
+        const distanceFromStart = animationStartPoint - top;
+        const progress = distanceFromStart / animationZoneHeight;
+
+        return Math.max(0, Math.min(1, progress));
+      });
+      setProgressValues(newProgressValues);
+    };
+
+    window.addEventListener("scroll", handleServicesScroll);
+    handleServicesScroll();
+    return () => window.removeEventListener("scroll", handleServicesScroll);
+  }, [servicesData.length]);
+
   return (
-    // And attach the ref to the section element
-    <section className="products-section" ref={ref}>
-      <div className="products-header">
-        <span className="services-tag">SERVICES</span>
-        <h2 className="section-title">Lets craft something lasting — something that sings.</h2>
-      </div>
-      <div className="products-grid">
-        {productData.map((product) => (
-          <ProductCard
-            key={product.title}
-            {...product} // Pass all product props easily
-          />
-        ))}
+    <section className="services-section" ref={ref}>
+      <div className="services-container">
+        {/* Left side: Scrolling Text Content */}
+        <div className="services-text-content">
+          {servicesData.map((service, index) => (
+            <div key={index} ref={(el) => (serviceSectionsRef.current[index] = el)} className="service-item">
+              <h3 className="service-title">
+                <span>{service.title}</span>
+              </h3>
+              <p className="service-description">{service.description}</p>
+              <ul className="service-points">
+                {service.points.map((point, pIndex) => (
+                  <li key={pIndex} className="service-point">
+                    <svg className="point-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7"></path>
+                    </svg>
+                    <span>{point}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
+        </div>
+
+        {/* Right side: Sticky Images with Parallax */}
+        <div className="services-image-container">
+          <div className="sticky-image-wrapper">
+            {servicesData.map((service, index) => {
+              const progress = progressValues[index] || 0;
+              const translateY = index === 0 ? "0%" : `${100 - progress * 100}%`;
+
+              return (
+                <img
+                  key={service.imageUrl}
+                  src={service.imageUrl}
+                  alt={service.title}
+                  className="service-image"
+                  style={{
+                    transform: `translateY(${translateY})`,
+                    zIndex: index,
+                  }}
+                  onError={(e) => {
+                    e.target.onerror = null;
+                    e.target.src = `https://placehold.co/600x600/e2e8f0/334155?text=${service.title.replace(" ", "+")}`;
+                  }}
+                />
+              );
+            })}
+          </div>
+        </div>
       </div>
     </section>
   );
