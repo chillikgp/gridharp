@@ -5,6 +5,7 @@
   height: 110vh;
   width: 100%;
   overflow: hidden;
+  background-color: black; /* Changed from #f9fafb */
 }
 
 .hero-video {

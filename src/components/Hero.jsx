@@ -42,10 +42,6 @@ export default function Hero({ onVideoEnd }) {
 
         <video ref={videoRef} className="hero-video" src="/videos/pixelgreen.mp4" autoPlay muted />
       )}
-
-      {/* --- ADD THIS ELEMENT --- */}
-
-      <div className="scroll-down-indicator">Scroll Down</div>
     </section>
   );
 }
