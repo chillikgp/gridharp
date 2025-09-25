@@ -17,6 +17,18 @@
   z-index: -1; /* keep video in background */
 }
 
+.hero-image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* This ensures the image covers the container */
+  z-index: -1; /* Keep image in the background */
+
+  animation: zoomOut 3s ease-out forwards, float 6s ease-in-out infinite; /* The new floating animation */
+}
+
 .hero-overlay.left-align {
   display: flex;
   flex-direction: column;
@@ -92,4 +104,27 @@
 .hidden {
   opacity: 0;
   transform: translateY(20px);
+}
+
+/* Add this to the bottom of src/CSS/Hero.css */
+
+@keyframes zoomOut {
+  from {
+    transform: scale(1.06);
+  }
+  to {
+    transform: scale(1);
+  }
+}
+
+@keyframes float {
+  0% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px); /* Moves the image up */
+  }
+  100% {
+    transform: translateY(0px);
+  }
 }

@@ -1,11 +1,14 @@
 .about-section {
   padding: 4rem 2rem;
-  background-color: transparent; /* Changed from #f9fafb */
+  background-color: white; /* Changed from #f9fafb */
   position: relative;
   z-index: 4;
   min-height: 100vh;
   display: flex;
   align-items: center;
+  margin-top: -14vh; /* Pulls the section up to overlap the hero */
+  border-top-left-radius: 2rem; /* Adjust value as needed for the curve */
+  border-top-right-radius: 2rem; /* Adjust value as needed for the curve */
 }
 
 .about-container {

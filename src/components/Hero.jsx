@@ -1,31 +1,51 @@
 import React, { useState, useEffect, useRef } from "react";
+
 import "../CSS/Hero.css";
 
 export default function Hero({ onVideoEnd }) {
-  const [showText, setShowText] = useState(false);
+  const [videoCompleted, setVideoCompleted] = useState(false);
+
   const videoRef = useRef(null);
 
-  useEffect(() => {
-    const textTimer = setTimeout(() => setShowText(true), 2000);
+  const handleVideoEnd = () => {
+    setVideoCompleted(true); // Set state to true when video ends
 
+    onVideoEnd(); // Call the original onVideoEnd prop
+  };
+
+  useEffect(() => {
     const videoElement = videoRef.current;
+
     if (videoElement) {
       videoElement.playbackRate = 2;
-      videoElement.addEventListener("ended", onVideoEnd);
+
+      videoElement.addEventListener("ended", handleVideoEnd);
     }
 
+    // Cleanup the event listener when the component unmounts
+
     return () => {
-      clearTimeout(textTimer);
       if (videoElement) {
-        videoElement.removeEventListener("ended", onVideoEnd);
+        videoElement.removeEventListener("ended", handleVideoEnd);
       }
     };
   }, [onVideoEnd]);
 
   return (
     <section className="hero-section">
-      {/* Background Video */}
-      <video ref={videoRef} className="hero-video" src="/videos/pixelgreen.mp4" autoPlay muted />
+      {videoCompleted ? (
+        // If video is completed, show the hero image
+
+        <img src="/hero.png" alt="Hero Background" className="hero-image" />
+      ) : (
+        // Otherwise, show the video
+
+        <video ref={videoRef} className="hero-video" src="/videos/pixelgreen.mp4" autoPlay muted />
+      )}
+
+      {/* --- ADD THIS ELEMENT --- */}
+
+      <div className="scroll-down-indicator">Scroll Down</div>
     </section>
   );
 }

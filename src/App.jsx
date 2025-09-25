@@ -9,13 +9,15 @@ import AppDevelopment from "./components/AppDevelopment";
 import AISolutions from "./components/AISolutions";
 import Footer from "./components/Footer";
 import CallbackFormModal from "./components/CallbackFormModal";
-import GridBackground from "./components/GridBackground"; // 1. Import the new component
+import GridBackground from "./components/GridBackground";
+import BlogSection from "./components/BlogSection"; // 1. Import the new component
 
 export default function App() {
   const [isNavbarVisible, setNavbarVisible] = useState(false);
   const [isModalOpen, setModalOpen] = useState(false);
   const contentSectionRef = useRef(null);
 
+  // ... (keep all your existing logic)
   const handleVideoEnd = () => {
     setNavbarVisible(true);
   };
@@ -54,17 +56,17 @@ export default function App() {
       <Navbar isVisible={isNavbarVisible} />
       <CallbackFormModal isOpen={isModalOpen} onClose={closeModal} />
 
-      {/* The Hero section remains outside the grid */}
       <Routes>
         <Route
           path="/"
           element={
             <>
               <Hero onVideoEnd={handleVideoEnd} />
-              {/* 2. Wrap the rest of the page content */}
+              <About ref={contentSectionRef} onOpenModal={openModal} />
               <GridBackground>
-                <About ref={contentSectionRef} onOpenModal={openModal} />
                 <Products />
+                {/* 2. Add the BlogSection here, before the Footer */}
+                <BlogSection />
                 <Footer onOpenModal={openModal} />
               </GridBackground>
             </>
